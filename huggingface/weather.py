@@ -1,19 +1,3 @@
-# ---
-# jupyter:
-#   jupytext:
-#     text_representation:
-#       extension: .py
-#       format_name: percent
-#       format_version: '1.3'
-#       jupytext_version: 1.17.2
-#   kernelspec:
-#     display_name: .venv
-#     language: python
-#     name: python3
-# ---
-
-# %%
-##I want the agent to find the weather of specific location and report in a specific format
 
 import os
 from huggingface_hub import InferenceClient
@@ -25,10 +9,6 @@ HF_TOKEN=os.getenv("HF_TOKEN")
 print(HF_TOKEN)
 
 client = InferenceClient(model="meta-llama/Llama-4-Scout-17B-16E-Instruct", token=HF_TOKEN)
-
-# %%
-# This system prompt is a bit more complex and actually contains the function description already appended.
-# Here we suppose that the textual description of the tools have already been appended
 
 SYSTEM_PROMPT = """Answer the following questions as best you can. You have access to the following tools:
 
@@ -71,12 +51,9 @@ messages = [
 
 messages
 
-# %%
 output = client.chat.completions.create(
     messages=messages,
     stream=False,
     max_tokens=1000,
 )
 print(output.choices[0].message.content)
-
-# %%
